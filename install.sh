@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-REPO_URL="https://raw.githubusercontent.com/$(git config --get remote.origin.url | sed 's|https://github.com/||;s|\.git$||')/main/script.sh"
+REPO_URL="https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/script.sh"
 INSTALL_DIR="/usr/local/bin"
 SCRIPT_NAME="password-generator"
 TEMP_FILE="/tmp/password-generator-script.sh"

@@ -5,7 +5,7 @@ REM This script downloads and installs the password generator shell script
 setlocal enabledelayedexpansion
 
 REM Configuration
-set "REPO_URL=https://raw.githubusercontent.com/%%USERNAME%%/password-generator/main/script.sh"
+set "REPO_URL=https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/script.sh"
 set "INSTALL_DIR=%USERPROFILE%\password-generator"
 set "SCRIPT_NAME=password-generator.bat"
 set "TEMP_FILE=%TEMP%\password-generator-script.sh"

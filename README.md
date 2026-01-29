@@ -6,17 +6,17 @@ A secure, cross-platform password generator written in Bash that creates random 
 
 ### Linux/macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/install.sh | bash
 ```
 
 ### Windows (PowerShell)
 ```powershell
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.bat -o install.bat && .\install.bat
+curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/install.bat -o install.bat && .\install.bat
 ```
 
 Or using PowerShell directly:
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.bat" -OutFile "install.bat"; .\install.bat
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/install.bat" -OutFile "install.bat"; .\install.bat
 ```
 
 ## Features
@@ -104,17 +104,17 @@ Generated password (32 chars, UNRESTRICTED): P@ssW0rd!S3cur3#H@sh.G3n3r@t0r
 
 ### Linux/macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/uninstall.sh | bash
 ```
 
 ### Windows (PowerShell)
 ```powershell
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/uninstall.bat -o uninstall.bat && .\uninstall.bat
+curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/uninstall.bat -o uninstall.bat && .\uninstall.bat
 ```
 
 Or using PowerShell directly:
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/uninstall.bat" -OutFile "uninstall.bat"; .\uninstall.bat
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/uninstall.bat" -OutFile "uninstall.bat"; .\uninstall.bat
 ```
 
 ## Requirements
