@@ -1,49 +1,71 @@
-#!/bin/bash
+#!/bin/sh
 
 # Password Generator - Shell Version
 # Generates secure random passwords with customizable character sets
 
-# Character sets for different compatibility levels
-declare -A CHAR_SETS=(
-    ["RESTRICTED"]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.@"  # ENV and URL-safe special chars
-    ["UNRESTRICTED"]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-=+[]{}|:;,.<>?"  # All special chars
-    ["BASIC"]="!@#$%^&*"
-    ["URL_SAFE"]="-_.~!*()"
-    ["URL_ULTRA_SAFE"]="-_.~"
-    ["NONE"]=""
-)
+# Character sets for different compatibility levels (sh-compatible)
+CHAR_SET_RESTRICTED="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.@"  # ENV and URL-safe special chars
+CHAR_SET_UNRESTRICTED="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&*()_-=+[]{}|:;,.<>?"  # All special chars
+CHAR_SET_BASIC="!@#\$%^&*"
+CHAR_SET_URL_SAFE="-_.~!*()"
+CHAR_SET_URL_ULTRA_SAFE="-_.~"
+CHAR_SET_NONE=""
 
 # Default values
 DEFAULT_LENGTH=12
 DEFAULT_CHARSET="RESTRICTED"
 
+# Function to get charset by name (sh-compatible)
+get_charset() {
+    charset_name=$1
+    case $charset_name in
+        RESTRICTED) echo "$CHAR_SET_RESTRICTED" ;;
+        UNRESTRICTED) echo "$CHAR_SET_UNRESTRICTED" ;;
+        BASIC) echo "$CHAR_SET_BASIC" ;;
+        URL_SAFE) echo "$CHAR_SET_URL_SAFE" ;;
+        URL_ULTRA_SAFE) echo "$CHAR_SET_URL_ULTRA_SAFE" ;;
+        NONE) echo "$CHAR_SET_NONE" ;;
+        *) echo "" ;;
+    esac
+}
+
+# Function to check if charset is valid (sh-compatible)
+is_valid_charset() {
+    charset_name=$1
+    case $charset_name in
+        RESTRICTED|UNRESTRICTED|BASIC|URL_SAFE|URL_ULTRA_SAFE|NONE) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
 # Function to generate random password
 generate_password() {
-    local length=$1
-    local charset_name=$2
-    local charset="${CHAR_SETS[$charset_name]}"
-    local ensure_all_types=$3
+    length=$1
+    charset_name=$2
+    ensure_all_types=$3
+
+    charset=$(get_charset "$charset_name")
 
     # Base character pools
-    local lowercase="abcdefghijklmnopqrstuvwxyz"
-    local uppercase="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    local numbers="0123456789"
-    local all_chars="$lowercase$uppercase$numbers$charset"
+    lowercase="abcdefghijklmnopqrstuvwxyz"
+    uppercase="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    numbers="0123456789"
+    all_chars="$lowercase$uppercase$numbers$charset"
 
-    local password=""
+    password=""
 
-    if [[ "$ensure_all_types" == "true" ]] && [[ $length -ge 4 ]]; then
+    if [ "$ensure_all_types" = "true" ] && [ "$length" -ge 4 ] 2>/dev/null; then
         # Ensure at least one of each type
-        password+=$(echo "$lowercase" | fold -w1 | shuf -n1)
-        password+=$(echo "$uppercase" | fold -w1 | shuf -n1)
-        password+=$(echo "$numbers" | fold -w1 | shuf -n1)
-        if [[ -n "$charset" ]]; then
-            password+=$(echo "$charset" | fold -w1 | shuf -n1)
+        password="$password$(echo "$lowercase" | fold -w1 | shuf -n1)"
+        password="$password$(echo "$uppercase" | fold -w1 | shuf -n1)"
+        password="$password$(echo "$numbers" | fold -w1 | shuf -n1)"
+        if [ -n "$charset" ]; then
+            password="$password$(echo "$charset" | fold -w1 | shuf -n1)"
         fi
 
         # Fill the rest randomly
-        local remaining=$((length - ${#password}))
-        password+=$(echo "$all_chars" | fold -w1 | shuf -n$remaining | tr -d '\n')
+        remaining=$(expr $length - $(echo "$password" | wc -c | awk '{print $1}'))
+        password="$password$(echo "$all_chars" | fold -w1 | shuf -n$remaining | tr -d '\n')"
 
         # Shuffle the password
         password=$(echo "$password" | fold -w1 | shuf | tr -d '\n')
@@ -89,7 +111,7 @@ length=$DEFAULT_LENGTH
 charset=$DEFAULT_CHARSET
 ensure_types=false
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
     case $1 in
         -l|--length)
             length="$2"
@@ -116,18 +138,21 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validate charset
-if [[ ! -v CHAR_SETS[$charset] ]]; then
+if ! is_valid_charset "$charset"; then
     echo "Error: Unknown charset '$charset'"
     echo ""
     echo "Available charsets:"
-    for key in "${!CHAR_SETS[@]}"; do
-        echo "  $key"
-    done
+    echo "  RESTRICTED"
+    echo "  UNRESTRICTED"
+    echo "  BASIC"
+    echo "  URL_SAFE"
+    echo "  URL_ULTRA_SAFE"
+    echo "  NONE"
     exit 1
 fi
 
-# Validate length
-if ! [[ "$length" =~ ^[0-9]+$ ]] || [[ $length -lt 1 ]]; then
+# Validate length (sh-compatible numeric check)
+if ! echo "$length" | grep -q '^[0-9]\+$' || [ "$length" -lt 1 ] 2>/dev/null; then
     echo "Error: Length must be a positive integer"
     exit 1
 fi

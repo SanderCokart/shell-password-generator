@@ -6,7 +6,7 @@ A secure, cross-platform password generator written in Bash that creates random 
 
 ### Linux/macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/install.sh | sh
 ```
 
 ### Windows (PowerShell)
@@ -24,8 +24,8 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SanderCokart/shell-pas
 - **Multiple Character Sets**: Choose from predefined character sets optimized for different use cases
 - **Customizable Length**: Generate passwords from 1 to unlimited characters
 - **Security Options**: Ensure all character types are present for maximum security
-- **Cross-Platform**: Works on Linux, macOS, and Windows (with bash)
-- **No Dependencies**: Pure bash script with no external dependencies
+- **Cross-Platform**: Works on Linux, macOS, and Windows (with shell)
+- **No Dependencies**: Pure shell script with no external dependencies
 - **Fast**: Generates passwords instantly
 
 ## Character Sets
@@ -104,7 +104,7 @@ Generated password (32 chars, UNRESTRICTED): P@ssW0rd!S3cur3#H@sh.G3n3r@t0r
 
 ### Linux/macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/uninstall.sh | sh
 ```
 
 ### Windows (PowerShell)
@@ -120,13 +120,13 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SanderCokart/shell-pas
 ## Requirements
 
 ### Linux/macOS
-- Bash shell
+- POSIX shell (sh/bash compatible)
 - Standard Unix tools: `fold`, `shuf`, `tr`
 - `curl` or `wget` for installation
 
 ### Windows
 - Windows 10 or later
-- One of the following for bash execution:
+- One of the following for shell execution:
   - Git for Windows (includes bash)
   - Windows Subsystem for Linux (WSL)
   - MSYS2
