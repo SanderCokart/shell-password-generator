@@ -72,13 +72,7 @@ for %%A in ("%TEMP_FILE%") do if %%~zA equ 0 (
 
 REM Check if script is already installed
 if exist "%INSTALL_DIR%\%SCRIPT_NAME%" (
-    echo [WARNING] Password generator is already installed at %INSTALL_DIR%\%SCRIPT_NAME%
-    set /p "choice=Do you want to overwrite it? (y/N): "
-    if /i not "!choice!"=="y" if /i not "!choice!"=="Y" (
-        echo [INFO] Installation cancelled.
-        del "%TEMP_FILE%" 2>nul
-        goto :end
-    )
+    echo [INFO] Overwriting existing installation...
 )
 
 REM Create batch wrapper for the shell script

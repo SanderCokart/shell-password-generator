@@ -29,6 +29,7 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+
 print_status "Password Generator Uninstaller for Linux/macOS"
 echo
 
@@ -61,13 +62,6 @@ if [[ "$user_installed" == "true" ]]; then
 fi
 echo
 
-# Confirm uninstallation
-read -p "Do you want to continue with uninstallation? (y/N): " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    print_status "Uninstallation cancelled."
-    exit 0
-fi
 
 # Remove system-wide installation (requires sudo if not root)
 if [[ "$system_installed" == "true" ]]; then
@@ -99,14 +93,10 @@ fi
 print_status "Uninstallation completed successfully!"
 print_status "The password generator has been removed from your system."
 
-# Check if user install directory is empty and offer to remove it
+# Clean up empty user install directory
 if [[ -d "$USER_INSTALL_DIR" ]]; then
     if [[ -z "$(ls -A "$USER_INSTALL_DIR" 2>/dev/null)" ]]; then
-        read -p "The $USER_INSTALL_DIR directory is now empty. Remove it? (y/N): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            rmdir "$USER_INSTALL_DIR"
-            print_status "Empty directory $USER_INSTALL_DIR removed."
-        fi
+        rmdir "$USER_INSTALL_DIR"
+        print_status "Empty directory $USER_INSTALL_DIR removed."
     fi
 fi

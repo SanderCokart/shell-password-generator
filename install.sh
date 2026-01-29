@@ -30,6 +30,7 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+
 # Check if running as root/sudo
 if [[ $EUID -eq 0 ]]; then
     print_warning "Running as root. This will install system-wide."
@@ -73,14 +74,7 @@ fi
 
 # Check if script is already installed
 if [[ -f "$INSTALL_DIR/$SCRIPT_NAME" ]]; then
-    print_warning "Password generator is already installed at $INSTALL_DIR/$SCRIPT_NAME"
-    read -p "Do you want to overwrite it? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_status "Installation cancelled."
-        rm -f "$TEMP_FILE"
-        exit 0
-    fi
+    print_status "Overwriting existing installation..."
 fi
 
 # Install the script
