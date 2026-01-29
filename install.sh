@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Password Generator Installer for Linux/macOS
 # This script downloads and installs the password generator shell script
@@ -32,7 +32,7 @@ print_error() {
 
 
 # Check if running as root/sudo
-if [[ $EUID -eq 0 ]]; then
+if [ "$(id -u)" -eq 0 ]; then
     print_warning "Running as root. This will install system-wide."
 else
     print_status "Installing for current user only."
@@ -40,11 +40,14 @@ else
     # Create directory if it doesn't exist
     mkdir -p "$INSTALL_DIR"
     # Add to PATH if not already there
-    if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
+    case ":$PATH:" in
+        *":$INSTALL_DIR:"*) ;;
+        *)
         print_warning "$INSTALL_DIR is not in your PATH."
         print_status "Add the following line to your ~/.bashrc or ~/.zshrc:"
         echo "export PATH=\"$INSTALL_DIR:\$PATH\""
-    fi
+        ;;
+    esac
 fi
 
 # Check if curl or wget is available
@@ -66,14 +69,14 @@ if ! $DOWNLOADER "$REPO_URL" > "$TEMP_FILE"; then
 fi
 
 # Verify the downloaded script
-if [[ ! -s "$TEMP_FILE" ]]; then
+if [ ! -s "$TEMP_FILE" ]; then
     print_error "Downloaded file is empty"
     rm -f "$TEMP_FILE"
     exit 1
 fi
 
 # Check if script is already installed
-if [[ -f "$INSTALL_DIR/$SCRIPT_NAME" ]]; then
+if [ -f "$INSTALL_DIR/$SCRIPT_NAME" ]; then
     print_status "Overwriting existing installation..."
 fi
 
