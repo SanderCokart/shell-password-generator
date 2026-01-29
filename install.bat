@@ -7,7 +7,7 @@ setlocal enabledelayedexpansion
 REM Configuration
 set "REPO_URL=https://raw.githubusercontent.com/SanderCokart/shell-password-generator/main/script.sh"
 set "INSTALL_DIR=%USERPROFILE%\password-generator"
-set "SCRIPT_NAME=password-generator.bat"
+set "SCRIPT_NAME=pwgen.bat"
 set "TEMP_FILE=%TEMP%\password-generator-script.sh"
 
 REM Colors (using mode con for Windows)

@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-SCRIPT_NAME="password-generator"
+SCRIPT_NAME="pwgen"
 SYSTEM_INSTALL_DIR="/usr/local/bin"
 USER_INSTALL_DIR="$HOME/.local/bin"
 

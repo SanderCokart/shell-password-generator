@@ -41,29 +41,29 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SanderCokart/shell-pas
 
 ## Usage
 
-After installation, use the `password-generator` command:
+After installation, use the `pwgen` command:
 
 ```bash
 # Generate default password (12 chars, RESTRICTED set)
-password-generator
+pwgen
 
 # Generate 16-character password
-password-generator -l 16
+pwgen -l 16
 
 # Generate password with all character types ensured
-password-generator -e
+pwgen -e
 
 # Generate URL-safe password
-password-generator -c URL_SAFE -l 20
+pwgen -c URL_SAFE -l 20
 
 # Generate with unrestricted character set
-password-generator -c UNRESTRICTED -l 24 -e
+pwgen -c UNRESTRICTED -l 24 -e
 ```
 
 ### Command Options
 
 ```
-Usage: password-generator [OPTIONS]
+Usage: pwgen [OPTIONS]
 
 Options:
   -l, --length LENGTH     Password length (default: 12)
@@ -84,19 +84,19 @@ Available character sets:
 
 ```bash
 # Basic usage
-$ password-generator
+$ pwgen
 Generated password (12 chars, RESTRICTED): Ab3XyZ9mNp2K
 
 # Long password with all types
-$ password-generator -l 20 -e
+$ pwgen -l 20 -e
 Generated password (20 chars, RESTRICTED): A1b!C2d@E3f.G4h_I5jK
 
 # URL-safe password
-$ password-generator -c URL_SAFE -l 16
+$ pwgen -c URL_SAFE -l 16
 Generated password (16 chars, URL_SAFE): aB3~cD4.eF5_gH6!
 
 # Maximum security
-$ password-generator -c UNRESTRICTED -l 32 -e
+$ pwgen -c UNRESTRICTED -l 32 -e
 Generated password (32 chars, UNRESTRICTED): P@ssW0rd!S3cur3#H@sh.G3n3r@t0r
 ```
 
